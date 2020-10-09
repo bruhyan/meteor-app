@@ -14,11 +14,16 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { MatNativeDateModule } from '@angular/material/core';
 import { NgxMaterialTimepickerModule } from 'ngx-material-timepicker';
+import { MatCardModule } from '@angular/material/card';
+import { MainComponent } from './components/main/main.component';
+import { InputComponent } from './components/input/input.component';
 
 
 @NgModule({
   declarations: [
-    AppComponent
+    AppComponent,
+    MainComponent,
+    InputComponent
   ],
   imports: [
     BrowserModule,
@@ -33,10 +38,12 @@ import { NgxMaterialTimepickerModule } from 'ngx-material-timepicker';
     NgxMaterialTimepickerModule,
     FormsModule,
     ReactiveFormsModule,
+    MatCardModule
   ],
   providers: [
     MatNativeDateModule,
-    MatDatepickerModule
+    MatDatepickerModule,
+    NgxMaterialTimepickerModule,
   ],
   bootstrap: [AppComponent]
 })
