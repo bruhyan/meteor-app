@@ -2,11 +2,21 @@
     <mat-card class="traffic-img-card">
         <div class="traffic-img-card-header">
             <h1>Traffic Image</h1>
-            <h3>{{location.city}}</h3>
-            <h3>{{location.formattedDate}}</h3>
+            <div *ngIf="location != null; else noData">
+                <h3>{{location.city}}</h3>
+                <h3>{{location.formattedDate}}</h3>
+            </div>
+            <ng-template #noData>
+                <h3>Data not available</h3>
+            </ng-template>
         </div>
         <div class="traffic-img-container">
-            <img mat-card-image class="traffic-img" src={{location.image}} alt="Photo of a Shiba Inu">
+            <div *ngIf="location != null; else noImage">
+                <img mat-card-image class="traffic-img" src={{location.image}} alt="Photo of a Shiba Inu">
+            </div>
+            <ng-template #noImage>
+                <img mat-card-image class="no-data-img" src="../../../assets/images/not-found.png">
+            </ng-template>
         </div>
     </mat-card>
 </div>

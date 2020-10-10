@@ -8,6 +8,11 @@
     width: 100%;
 }
 
+.no-data-img {
+    height: 30%;
+    width: 30%;
+}
+
 .traffic-img-card {
     width: 100%;
 }

@@ -1,6 +1,11 @@
 <div class="main-container">
     <h1>Meteor App</h1>
-    <app-input (onSubmitDateTime)="propagateDateTime($event)"></app-input>
+    <!-- <div class="row"> -->
+    <!-- <div class="col-md-8 col-s-12"> -->
+    <div>
+        <app-input (onSubmitDateTime)="propagateDateTime($event)"></app-input>
+    </div>
+    <!-- </div> -->
     <div class="row">
         <div class="col-md-6 col-s-12">
             <app-location-list [selectedDateTime]="selectedDateTime.asObservable()"

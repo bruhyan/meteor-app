@@ -4,6 +4,8 @@ import { Observable, Subscription } from 'rxjs';
 import { WeatherService } from '../../services/weather/weather.service';
 import { GeocodeService } from '../../services/geocode/geocode.service';
 
+import * as moment from 'moment';
+
 @Component({
   selector: 'app-weather',
   templateUrl: './weather.component.html',
@@ -16,6 +18,7 @@ export class WeatherComponent implements OnInit {
   selectedLocationSubscription: Subscription;
   location: any = {
     city: '',
+    formattedDate: '',
     location: {}
   };
   closestLocation: any;
@@ -28,13 +31,20 @@ export class WeatherComponent implements OnInit {
   constructor(private weatherService: WeatherService, private geocodeService: GeocodeService) { }
 
   ngOnInit(): void {
-    this.weatherService.get2HrForecast().subscribe(async (forecasts) => {
+    let currentDateTime = encodeURIComponent(moment(new Date()).format())
+    this.weatherService.get2HrForecast(currentDateTime).subscribe(async (forecasts) => {
       this.twoHrForecasts = forecasts;
       this.locationCoordinateMap = this.twoHrForecasts.area_metadata;
     })
-    this.selectedLocationSubscription = this.selectedLocation.subscribe(async (location) => {
+    this.selectedLocationSubscription = this.selectedLocation.subscribe(async (location: any) => {
       console.log('received location in weather', location);
+
       this.location = location;
+      let date = encodeURIComponent(location.timestamp);
+      this.weatherService.get2HrForecast(date).subscribe(async (forecasts) => {
+        this.twoHrForecasts = forecasts;
+        this.locationCoordinateMap = this.twoHrForecasts.area_metadata;
+      })
       const closestLocation = await this.calculateClosestLocation(this.location.location.latitude, this.location.location.longitude);
       this.setWeather(closestLocation);
     })
