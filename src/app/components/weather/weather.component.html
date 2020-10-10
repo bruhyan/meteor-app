@@ -2,8 +2,31 @@
     <mat-card>
         <div class="weather-card-header">
             <h1>Weather forecast</h1>
+            <h3>24-hour, by location</h3>
             <h3>{{location.city}}</h3>
-            <h3>{{twoHrWeather}}</h3>
+            <div class="weather-content">
+                <div *ngIf="twoHrWeather == 'Light Rain'">
+                    <img src="../../../assets/images/light-rain.png">
+                </div>
+                <div *ngIf="twoHrWeather == 'Sunny' || twoHrWeather == 'Clear'">
+                    <img src="../../../assets/images/sunny (1).png">
+                </div>
+                <div *ngIf="twoHrWeather == 'Moderate Rain'">
+                    <img src="../../../assets/images/light-rain.png">
+                </div>
+                <div *ngIf="twoHrWeather == 'Heavy Rain'">
+                    <img src="../../../assets/images/storm.png">
+                </div>
+                <div *ngIf="twoHrWeather == 'Partly Cloudy (Day)'">
+                    <img src="../../../assets/images/cloudy.png">
+                </div>
+                <div *ngIf="twoHrWeather == 'Partly Cloudy (Night)'">
+                    <img src="../../../assets/images/cloudy-night.png">
+                </div>
+
+                <h3>{{twoHrWeather}}</h3>
+            </div>
+
         </div>
     </mat-card>
 </div>

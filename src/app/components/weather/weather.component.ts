@@ -54,6 +54,7 @@ export class WeatherComponent implements OnInit {
   }
 
   // haversine formula
+  // https://en.wikipedia.org/wiki/Haversine_formula
   async calculateClosestLocation(lat1: number, lon1: number) {
     let minDist = 999999; //km
     let closestLocation = '';

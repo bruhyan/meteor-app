@@ -32,7 +32,11 @@
                             <button mat-flat-button color="primary">View</button>
                         </td>
                     </ng-container> -->
-
+                    <tr class="mat-row" *matNoDataRow>
+                        <td class="mat-cell" colspan="9999">
+                            No data matching the filter
+                        </td>
+                    </tr>
                     <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
                     <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
                 </table>
