@@ -11,7 +11,9 @@ export class ImageComponent implements OnInit {
   constructor() { }
 
   selectedLocationSubscription: Subscription;
-  location: Object;
+  location: any = {
+    city: ''
+  };
 
   @Input()
   selectedLocation: Observable<Object>;
