@@ -1,12 +1,15 @@
 <div class="main-container">
-    <h1>Meteor App</h1>
-    <!-- <div class="row"> -->
-    <!-- <div class="col-md-8 col-s-12"> -->
-    <div>
-        <app-input (onSubmitDateTime)="propagateDateTime($event)"></app-input>
+    <div class="row banner-row">
+        <div class="col-md-6 col-s-6 banner-left">
+            <img class="banner-img" src="../../../assets/images/banner.gif">
+            <h1>24 Hour Traffic Camera and Weather Forecast</h1>
+        </div>
+        <div class="col-md-6 col-s-12">
+            <app-input (onSubmitDateTime)="propagateDateTime($event)"></app-input>
+        </div>
     </div>
-    <!-- </div> -->
-    <div class="row">
+
+    <div class="row data-row">
         <div class="col-md-6 col-s-12">
             <app-location-list [selectedDateTime]="selectedDateTime.asObservable()"
                 (onSubmitLocation)="propagateLocation($event)"></app-location-list>
@@ -18,6 +21,4 @@
             <app-weather [selectedLocation]="selectedLocation.asObservable()"></app-weather>
         </div>
     </div>
-
-
 </div>

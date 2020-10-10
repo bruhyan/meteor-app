@@ -10,13 +10,12 @@
                 <h3>Data not available</h3>
             </ng-template>
         </div>
-        <div class="traffic-img-container">
-            <div *ngIf="location != null; else noImage">
-                <img mat-card-image class="traffic-img" src={{location.image}} alt="Photo of a Shiba Inu">
-            </div>
-            <ng-template #noImage>
-                <img mat-card-image class="no-data-img" src="../../../assets/images/not-found.png">
-            </ng-template>
+        <div class="traffic-img-container" *ngIf="location != null; else noImage">
+            <img mat-card-image class="traffic-img" src={{location.image}}>
         </div>
+        <ng-template #noImage>
+            <img mat-card-image class="no-data-img" src="../../../assets/images/not-found.png">
+        </ng-template>
+
     </mat-card>
 </div>

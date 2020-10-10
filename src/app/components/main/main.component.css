@@ -1,3 +1,26 @@
 .main-container {
-    margin: 0 5vw 0 5vw
+    margin: 0 5vw 0 5vw;
+}
+
+.banner-img {
+    object-fit: cover;
+    height: 70%;
+    width: 70%;
+}
+
+.banner-row {
+    padding-top: 5rem;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+}
+
+.banner-left {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.data-row {
+    margin-bottom: 5rem;
 }

@@ -1,7 +1,7 @@
 <mat-card>
     <form [formGroup]="inputForm">
         <div class="row">
-            <div class="col-md-2 offset-2 col-s-12">
+            <div class="col-md-5 col-s-12 date-input-container">
                 <h2>Date</h2>
                 <mat-form-field appearance="fill">
                     <mat-label>Choose a date</mat-label>
@@ -10,25 +10,13 @@
                     <mat-datepicker #picker></mat-datepicker>
                 </mat-form-field>
             </div>
-            <div class="col-md-3 col-s-12 offset-2">
+            <div class="col-md-3 col-s-12 time-input-container">
                 <h2>Time</h2>
-                <div class=" time-picker-container">
-                    <div class="row">
-                        <!-- <input [ngxTimepicker]="toggleTimepicker" [disableClick]="true" readonly
-                            placeholder="Choose a time" class="time-picker" formControlName="time" [format]="24">
-                        <div class="time-picker-icon"> -->
-                        <!-- <ngx-material-timepicker-toggle [for]="toggleTimepicker">
-                            </ngx-material-timepicker-toggle>
-                            <ngx-material-timepicker #toggleTimepicker> -->
-                        <ngb-timepicker formControlName="time"></ngb-timepicker>
-                        <!-- <hr> -->
-                        <!-- <pre>Selected time: {{time | json}}</pre> -->
-                        <!-- </ngx-material-timepicker> -->
-                        <!-- </div> -->
-                    </div>
+                <div class="row">
+                    <ngb-timepicker formControlName="time"></ngb-timepicker>
                 </div>
             </div>
-            <div class="col-md-1 col-s-12 input-btn-container">
+            <div class="col-md-2 col-s-12 input-btn-container">
                 <button mat-flat-button color="primary" (click)="this.submitDateTime()">Submit</button>
             </div>
         </div>
