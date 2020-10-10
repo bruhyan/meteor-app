@@ -1,10 +1,9 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { Observable, Subscription } from 'rxjs';
-
-import { WeatherService } from '../../services/weather/weather.service';
-import { GeocodeService } from '../../services/geocode/geocode.service';
-
 import * as moment from 'moment';
+
+// services
+import { WeatherService } from '../../services/weather/weather.service';
 
 @Component({
   selector: 'app-weather',
@@ -22,49 +21,48 @@ export class WeatherComponent implements OnInit {
     location: {}
   };
   closestLocation: any;
-
   twoHrWeather;
 
   @Input()
   selectedLocation: Observable<Object>;
 
-  constructor(private weatherService: WeatherService, private geocodeService: GeocodeService) { }
+  constructor(private weatherService: WeatherService) { }
 
   ngOnInit(): void {
+    // default get forecast for current time
     let currentDateTime = encodeURIComponent(moment(new Date()).format())
-    this.weatherService.get2HrForecast(currentDateTime).subscribe(async (forecasts) => {
-      this.twoHrForecasts = forecasts;
-      this.locationCoordinateMap = this.twoHrForecasts.area_metadata;
-    })
-    this.selectedLocationSubscription = this.selectedLocation.subscribe(async (location: any) => {
-      console.log('received location in weather', location);
+    this.get2HrForecast(currentDateTime);
 
+    // listen for incoming selected location and set new weather
+    this.selectedLocationSubscription = this.selectedLocation.subscribe(async (location: any) => {
       this.location = location;
       let date = encodeURIComponent(location.timestamp);
-      this.weatherService.get2HrForecast(date).subscribe(async (forecasts) => {
-        this.twoHrForecasts = forecasts;
-        this.locationCoordinateMap = this.twoHrForecasts.area_metadata;
-      })
+      this.get2HrForecast(date);
       const closestLocation = await this.calculateClosestLocation(this.location.location.latitude, this.location.location.longitude);
       this.setWeather(closestLocation);
     })
   }
 
+  get2HrForecast(date: string) {
+    this.weatherService.get2HrForecast(date).subscribe(async (forecasts) => {
+      this.twoHrForecasts = forecasts;
+      this.locationCoordinateMap = this.twoHrForecasts.area_metadata;
+    })
+  }
+
   setWeather(closestLocation) {
-    console.log(this.twoHrForecasts);
-    console.log(closestLocation);
     const forecasts = this.twoHrForecasts.items[0].forecasts;
-    console.log(forecasts);
     for (let w of forecasts) {
       if (closestLocation === w.area) {
         this.twoHrWeather = w.forecast;
-        console.log(w.forecast);
       }
     }
   }
 
   // haversine formula
   // https://en.wikipedia.org/wiki/Haversine_formula
+  // given a latitude and longitude, this function returns the closest location
+  // using weather forecast API area metadata
   async calculateClosestLocation(lat1: number, lon1: number) {
     let minDist = 999999; //km
     let closestLocation = '';
@@ -72,8 +70,8 @@ export class WeatherComponent implements OnInit {
       let lat2 = l.label_location.latitude;
       let lon2 = l.label_location.longitude;
       var R = 6371; // Radius of the earth in km
-      var dLat = this.deg2rad(lat2 - lat1);
-      var dLon = this.deg2rad(lon2 - lon1);
+      var dLat = this.deg2rad(lat2 - lat1); // difference in latitude
+      var dLon = this.deg2rad(lon2 - lon1); // difference in longitude
       var a =
         Math.sin(dLat / 2) * Math.sin(dLat / 2) +
         Math.cos(this.deg2rad(lat1)) * Math.cos(this.deg2rad(lat2)) *
@@ -86,9 +84,7 @@ export class WeatherComponent implements OnInit {
         closestLocation = l.name;
       }
     }
-    console.log('closest is ', closestLocation);
     return closestLocation;
-
   }
 
   deg2rad(deg) {

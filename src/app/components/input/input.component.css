@@ -12,3 +12,11 @@
     align-items: center;
 }
 
+.time-error {
+    font-size: smaller;
+}
+
+.date-input {
+    margin-top: 1rem;
+}
+

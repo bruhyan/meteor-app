@@ -11,11 +11,12 @@ export class InputComponent implements OnInit {
 
   name = new FormControl('');
   inputForm: FormGroup;
+  timeError = false;
 
   constructor(private fb: FormBuilder) {
     this.inputForm = this.fb.group({
-      date: [''],
-      time: [''],
+      date: ['', Validators.required],
+      time: ['', Validators.required],
     })
   }
 
@@ -25,12 +26,14 @@ export class InputComponent implements OnInit {
   @Output() onSubmitDateTime: EventEmitter<any> = new EventEmitter<any>();
 
   submitDateTime() {
-    let dateString: string = moment(this.inputForm.value.date).format().substring(0, 11);
-    let timeString: string = moment(this.inputForm.value.time).format().substring(11);
-    let formattedDate: string = encodeURIComponent(dateString.concat(timeString));
-    this.onSubmitDateTime.emit(formattedDate);
-
-
+    if (this.inputForm.value.time == '') {
+      this.timeError = true;
+    } else {
+      let dateString: string = moment(this.inputForm.value.date).format().substring(0, 11);
+      let timeString: string = moment(this.inputForm.value.time).format().substring(11);
+      let formattedDate: string = encodeURIComponent(dateString.concat(timeString));
+      this.onSubmitDateTime.emit(formattedDate);
+    }
   }
 
 }

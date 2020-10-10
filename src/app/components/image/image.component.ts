@@ -15,16 +15,14 @@ export class ImageComponent implements OnInit {
     city: ''
   };
 
+  // selected location information from location list
   @Input()
   selectedLocation: Observable<Object>;
 
-
   ngOnInit(): void {
     this.selectedLocationSubscription = this.selectedLocation.subscribe((location) => {
-      console.log('received location in img', location);
       this.location = location;
     })
-
   }
 
 }

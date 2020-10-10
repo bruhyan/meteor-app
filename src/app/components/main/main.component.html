@@ -1,7 +1,7 @@
 <div class="main-container">
     <div class="row banner-row">
         <div class="col-md-6 col-s-6 banner-left">
-            <img class="banner-img" src="../../../assets/images/banner.gif">
+            <img class="banner-img" src="../../../assets/images/datagov.png">
             <h1>24 Hour Traffic Camera and Weather Forecast</h1>
         </div>
         <div class="col-md-6 col-s-12">
@@ -10,11 +10,11 @@
     </div>
 
     <div class="row data-row">
-        <div class="col-md-6 col-s-12">
+        <div class="col-md-5 col-s-12">
             <app-location-list [selectedDateTime]="selectedDateTime.asObservable()"
                 (onSubmitLocation)="propagateLocation($event)"></app-location-list>
         </div>
-        <div class="col-md-3 col-s-6">
+        <div class="col-md-4 col-s-6">
             <app-image [selectedLocation]="selectedLocation.asObservable()"></app-image>
         </div>
         <div class="col-md-3 col-s-6">

@@ -3,21 +3,25 @@
         <div class="row">
             <div class="col-md-5 col-s-12 date-input-container">
                 <h2>Date</h2>
-                <mat-form-field appearance="fill">
+                <mat-form-field class="date-input" appearance="fill">
                     <mat-label>Choose a date</mat-label>
                     <input matInput [matDatepicker]="picker" formControlName="date">
                     <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
                     <mat-datepicker #picker></mat-datepicker>
+                    <mat-error>This is required. Please enter a valid date.</mat-error>
                 </mat-form-field>
             </div>
             <div class="col-md-3 col-s-12 time-input-container">
                 <h2>Time</h2>
                 <div class="row">
                     <ngb-timepicker formControlName="time"></ngb-timepicker>
+                    <mat-error *ngIf="timeError" class="time-error">This is required. Please enter a valid date.
+                    </mat-error>
                 </div>
             </div>
             <div class="col-md-2 col-s-12 input-btn-container">
-                <button mat-flat-button color="primary" (click)="this.submitDateTime()">Submit</button>
+                <button mat-flat-button color="primary" [disabled]="!inputForm.valid"
+                    (click)="this.submitDateTime()">Submit</button>
             </div>
         </div>
     </form>

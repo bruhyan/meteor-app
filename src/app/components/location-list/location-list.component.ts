@@ -1,21 +1,12 @@
 import { Component, EventEmitter, Input, OnInit, Output, ViewChild } from '@angular/core';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatTableDataSource } from '@angular/material/table';
-
-import { TrafficService } from '../../services/traffic/traffic.service';
-import { GeocodeService } from '../../services/geocode/geocode.service';
 import { Observable, Subscription } from 'rxjs';
-
 import * as moment from 'moment';
 
-
-
-export interface PeriodicElement {
-  name: string;
-  position: number;
-  weight: number;
-  symbol: string;
-}
+// Services
+import { TrafficService } from '../../services/traffic/traffic.service';
+import { GeocodeService } from '../../services/geocode/geocode.service';
 
 @Component({
   selector: 'app-location-list',
@@ -26,8 +17,6 @@ export class LocationListComponent implements OnInit {
 
   displayedColumns: string[] = ['location', 'date', 'view'];
   dataSource: any;
-  // dataSource = new MatTableDataSource<PeriodicElement>(ELEMENT_DATA);
-  screenshot1;
 
   selectedDateTimeSubscription: Subscription;
 
@@ -38,10 +27,6 @@ export class LocationListComponent implements OnInit {
 
   @ViewChild(MatPaginator) paginator: MatPaginator;
 
-  ngAfterViewInit() {
-
-  }
-
   constructor(private trafficService: TrafficService, private geocodeService: GeocodeService) { }
 
   ngOnInit(): void {
@@ -49,11 +34,12 @@ export class LocationListComponent implements OnInit {
       this.setDataSource(date)
     });
 
+    // default retrieve most recent list
     let currentDateTime = encodeURIComponent(moment(new Date()).format())
     this.setDataSource(currentDateTime);
-    // this.submitLocation(this.dataSource.filteredData[0]);
   }
 
+  // set table datasource
   setDataSource(date: string) {
     this.trafficService.getTrafficScreenshots(date).subscribe((screenshots) => {
       this.dataSource = new MatTableDataSource(screenshots.items[0].cameras);
@@ -66,11 +52,10 @@ export class LocationListComponent implements OnInit {
         });
       }
     })
-
   }
 
+  //emit location selected to traffic and weather components
   submitLocation(location) {
-    console.log(location);
     this.onSubmitLocation.emit(location);
   }
 
