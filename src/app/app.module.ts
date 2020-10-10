@@ -15,15 +15,23 @@ import { MatInputModule } from '@angular/material/input';
 import { MatNativeDateModule } from '@angular/material/core';
 import { NgxMaterialTimepickerModule } from 'ngx-material-timepicker';
 import { MatCardModule } from '@angular/material/card';
+import { MatButtonModule } from '@angular/material/button';
+import { NgbTimepickerModule } from '@ng-bootstrap/ng-bootstrap';
+import { MatTableModule } from '@angular/material/table';
+import { MatPaginatorModule } from '@angular/material/paginator';
+
+//components
 import { MainComponent } from './components/main/main.component';
 import { InputComponent } from './components/input/input.component';
+import { LocationListComponent } from './components/location-list/location-list.component';
 
 
 @NgModule({
   declarations: [
     AppComponent,
     MainComponent,
-    InputComponent
+    InputComponent,
+    LocationListComponent
   ],
   imports: [
     BrowserModule,
@@ -38,12 +46,19 @@ import { InputComponent } from './components/input/input.component';
     NgxMaterialTimepickerModule,
     FormsModule,
     ReactiveFormsModule,
-    MatCardModule
+    MatCardModule,
+    MatButtonModule,
+    NgbTimepickerModule,
+    MatTableModule,
+    MatPaginatorModule,
   ],
   providers: [
     MatNativeDateModule,
     MatDatepickerModule,
     NgxMaterialTimepickerModule,
+    NgbTimepickerModule,
+    MatTableModule,
+    MatPaginatorModule
   ],
   bootstrap: [AppComponent]
 })
