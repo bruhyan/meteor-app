@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 import { FormControl, FormBuilder, FormGroup, Validators, ValidatorFn, } from '@angular/forms';
 import * as moment from 'moment';
 
@@ -22,13 +22,13 @@ export class InputComponent implements OnInit {
   ngOnInit(): void {
   }
 
+  @Output() onSubmitDateTime: EventEmitter<any> = new EventEmitter<any>();
+
   submitDateTime() {
-    console.log(this.inputForm.value)
-    console.log(moment(this.inputForm.value.date).format());
-    // console.log(moment(this.inputForm.value.time).format());
     let dateString: string = moment(this.inputForm.value.date).format().substring(0, 11);
     let timeString: string = moment(this.inputForm.value.time).format().substring(11);
-    console.log(dateString.concat(timeString));
+    let formattedDate: string = encodeURIComponent(dateString.concat(timeString));
+    this.onSubmitDateTime.emit(formattedDate);
 
 
   }

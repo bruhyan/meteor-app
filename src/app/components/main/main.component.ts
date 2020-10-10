@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Subject } from 'rxjs';
 
 @Component({
   selector: 'app-main',
@@ -7,9 +8,15 @@ import { Component, OnInit } from '@angular/core';
 })
 export class MainComponent implements OnInit {
 
+  selectedDateTime: Subject<string> = new Subject<string>();
+
   constructor() { }
 
   ngOnInit(): void {
+  }
+
+  propagateDateTime(date: string) {
+    this.selectedDateTime.next(date);
   }
 
 }

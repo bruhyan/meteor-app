@@ -1,9 +1,14 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Component, Input, OnInit, ViewChild } from '@angular/core';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatTableDataSource } from '@angular/material/table';
 
 import { TrafficService } from '../../services/traffic/traffic.service';
 import { GeocodeService } from '../../services/geocode/geocode.service';
+import { Observable, Subscription } from 'rxjs';
+
+import * as moment from 'moment';
+
+
 
 export interface PeriodicElement {
   name: string;
@@ -24,6 +29,11 @@ export class LocationListComponent implements OnInit {
   // dataSource = new MatTableDataSource<PeriodicElement>(ELEMENT_DATA);
   screenshot1;
 
+  selectedDateTimeSubscription: Subscription;
+
+  @Input()
+  selectedDateTime: Observable<string>;
+
 
   @ViewChild(MatPaginator) paginator: MatPaginator;
 
@@ -34,18 +44,24 @@ export class LocationListComponent implements OnInit {
   constructor(private trafficService: TrafficService, private geocodeService: GeocodeService) { }
 
   ngOnInit(): void {
-    this.trafficService.getTrafficScreenshots().subscribe((screenshots) => {
-      // console.log(screenshots);
+    this.selectedDateTimeSubscription = this.selectedDateTime.subscribe((date) => {
+      this.setDataSource(date)
+    });
+
+    let currentDateTime = encodeURIComponent(moment(new Date()).format())
+    this.setDataSource(currentDateTime);
+  }
+
+  setDataSource(date: string) {
+    this.trafficService.getTrafficScreenshots(date).subscribe((screenshots) => {
       this.dataSource = new MatTableDataSource(screenshots.items[0].cameras);
       this.dataSource.paginator = this.paginator;
-      console.log(this.dataSource.filteredData);
       for (let i of this.dataSource.filteredData) {
+        i.formattedDate = moment(i.timestamp).format('lll');
         this.geocodeService.getCityFromGeoCode(i.location.latitude, i.location.longitude).subscribe((city) => {
           i.city = city.locality;
         });
-
       }
-      console.log(this.dataSource);
     })
   }
 
