@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { timingSafeEqual } from 'crypto';
 import { Subject } from 'rxjs';
 
 @Component({
@@ -9,6 +10,7 @@ import { Subject } from 'rxjs';
 export class MainComponent implements OnInit {
 
   selectedDateTime: Subject<string> = new Subject<string>();
+  selectedLocation: Subject<Object> = new Subject<Object>();
 
   constructor() { }
 
@@ -17,6 +19,10 @@ export class MainComponent implements OnInit {
 
   propagateDateTime(date: string) {
     this.selectedDateTime.next(date);
+  }
+
+  propagateLocation(location: Object) {
+    this.selectedLocation.next(location);
   }
 
 }

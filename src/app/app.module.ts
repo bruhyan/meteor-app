@@ -24,6 +24,8 @@ import { MatPaginatorModule } from '@angular/material/paginator';
 import { MainComponent } from './components/main/main.component';
 import { InputComponent } from './components/input/input.component';
 import { LocationListComponent } from './components/location-list/location-list.component';
+import { ImageComponent } from './components/image/image.component';
+import { WeatherComponent } from './components/weather/weather.component';
 
 
 @NgModule({
@@ -31,7 +33,9 @@ import { LocationListComponent } from './components/location-list/location-list.
     AppComponent,
     MainComponent,
     InputComponent,
-    LocationListComponent
+    LocationListComponent,
+    ImageComponent,
+    WeatherComponent
   ],
   imports: [
     BrowserModule,

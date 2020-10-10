@@ -1,0 +1,23 @@
+.image-container {
+    margin-top: 3rem;
+}
+
+.traffic-img {
+    object-fit: cover;
+    height: 100%;
+    width: 100%;
+}
+
+.traffic-img-card {
+    width: 100%;
+}
+
+.traffic-img-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.traffic-img-card-header {
+    margin-bottom: 4rem;
+}

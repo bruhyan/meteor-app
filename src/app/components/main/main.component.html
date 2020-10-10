@@ -3,7 +3,11 @@
     <app-input (onSubmitDateTime)="propagateDateTime($event)"></app-input>
     <div class="row">
         <div class="col-md-6 col-s-12">
-            <app-location-list [selectedDateTime]="selectedDateTime.asObservable()"></app-location-list>
+            <app-location-list [selectedDateTime]="selectedDateTime.asObservable()"
+                (onSubmitLocation)="propagateLocation($event)"></app-location-list>
+        </div>
+        <div class="col-md-3 col-s-6">
+            <app-image [selectedLocation]="selectedLocation.asObservable()"></app-image>
         </div>
     </div>
 

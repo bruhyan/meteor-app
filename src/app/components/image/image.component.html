@@ -1,0 +1,12 @@
+<div class="image-container">
+    <mat-card class="traffic-img-card">
+        <div class="traffic-img-card-header">
+            <h1>Traffic Image</h1>
+            <h3>{{location.city}}</h3>
+            <h3>{{location.formattedDate}}</h3>
+        </div>
+        <div class="traffic-img-container">
+            <img mat-card-image class="traffic-img" src={{location.image}} alt="Photo of a Shiba Inu">
+        </div>
+    </mat-card>
+</div>

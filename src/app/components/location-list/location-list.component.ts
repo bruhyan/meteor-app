@@ -1,4 +1,4 @@
-import { Component, Input, OnInit, ViewChild } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output, ViewChild } from '@angular/core';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatTableDataSource } from '@angular/material/table';
 
@@ -24,7 +24,7 @@ export interface PeriodicElement {
 })
 export class LocationListComponent implements OnInit {
 
-  displayedColumns: string[] = ['position', 'name', 'weight', 'symbol'];
+  displayedColumns: string[] = ['location', 'date', 'view'];
   dataSource: any;
   // dataSource = new MatTableDataSource<PeriodicElement>(ELEMENT_DATA);
   screenshot1;
@@ -34,6 +34,7 @@ export class LocationListComponent implements OnInit {
   @Input()
   selectedDateTime: Observable<string>;
 
+  @Output() onSubmitLocation: EventEmitter<any> = new EventEmitter<any>();
 
   @ViewChild(MatPaginator) paginator: MatPaginator;
 
@@ -50,12 +51,14 @@ export class LocationListComponent implements OnInit {
 
     let currentDateTime = encodeURIComponent(moment(new Date()).format())
     this.setDataSource(currentDateTime);
+    // this.submitLocation(this.dataSource.filteredData[0]);
   }
 
   setDataSource(date: string) {
     this.trafficService.getTrafficScreenshots(date).subscribe((screenshots) => {
       this.dataSource = new MatTableDataSource(screenshots.items[0].cameras);
       this.dataSource.paginator = this.paginator;
+      this.submitLocation(this.dataSource.filteredData[0]);
       for (let i of this.dataSource.filteredData) {
         i.formattedDate = moment(i.timestamp).format('lll');
         this.geocodeService.getCityFromGeoCode(i.location.latitude, i.location.longitude).subscribe((city) => {
@@ -63,6 +66,12 @@ export class LocationListComponent implements OnInit {
         });
       }
     })
+
+  }
+
+  submitLocation(location) {
+    console.log(location);
+    this.onSubmitLocation.emit(location);
   }
 
 }
