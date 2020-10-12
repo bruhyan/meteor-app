@@ -20,6 +20,7 @@ import { MatButtonModule } from '@angular/material/button';
 import { NgbTimepickerModule } from '@ng-bootstrap/ng-bootstrap';
 import { MatTableModule } from '@angular/material/table';
 import { MatPaginatorModule } from '@angular/material/paginator';
+import { MatSortModule } from '@angular/material/sort';
 
 //components
 import { MainComponent } from './components/main/main.component';
@@ -27,6 +28,7 @@ import { InputComponent } from './components/input/input.component';
 import { LocationListComponent } from './components/location-list/location-list.component';
 import { ImageComponent } from './components/image/image.component';
 import { WeatherComponent } from './components/weather/weather.component';
+
 
 
 @NgModule({
@@ -56,7 +58,8 @@ import { WeatherComponent } from './components/weather/weather.component';
     NgbTimepickerModule,
     MatTableModule,
     MatPaginatorModule,
-    CommonModule
+    CommonModule,
+    MatSortModule
   ],
   providers: [
     MatNativeDateModule,
@@ -64,7 +67,11 @@ import { WeatherComponent } from './components/weather/weather.component';
     NgxMaterialTimepickerModule,
     NgbTimepickerModule,
     MatTableModule,
-    MatPaginatorModule
+    MatPaginatorModule,
+    MatSortModule
+  ],
+  exports: [
+    MatSortModule
   ],
   bootstrap: [AppComponent]
 })

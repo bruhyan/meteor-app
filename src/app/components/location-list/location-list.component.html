@@ -1,6 +1,9 @@
 <div class="location-list-container">
     <mat-card>
         <h1>Locations</h1>
+        <mat-form-field fxFlex="40%">
+            <input matInput type="text" (keyup)="doFilter($event.target.value)" placeholder="Filter">
+        </mat-form-field>
         <div class="table-container">
             <div class="mat-elevation-z8">
                 <table mat-table [dataSource]="dataSource" class="location-table">

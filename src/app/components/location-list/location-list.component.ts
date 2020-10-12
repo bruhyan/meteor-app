@@ -59,6 +59,11 @@ export class LocationListComponent implements OnInit {
     this.onSubmitLocation.emit(location);
   }
 
+  //table filter
+  doFilter = (value: string) => {
+    this.dataSource.filter = value.trim().toLocaleLowerCase();
+  }
+
 }
 
 

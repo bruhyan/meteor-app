@@ -13,8 +13,10 @@
         <div class="traffic-img-container" *ngIf="location != null; else noImage">
             <img mat-card-image class="traffic-img" src={{location.image}}>
         </div>
-        <ng-template #noImage>
-            <img mat-card-image class="no-data-img" src="../../../assets/images/not-found.png">
+        <ng-template #noImage class="no-image">
+            <div class="no-image-container">
+                <img mat-card-image class="no-data-img" src="../../../assets/images/not-found.png">
+            </div>
         </ng-template>
 
     </mat-card>

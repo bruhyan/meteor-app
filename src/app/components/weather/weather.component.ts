@@ -36,10 +36,13 @@ export class WeatherComponent implements OnInit {
     // listen for incoming selected location and set new weather
     this.selectedLocationSubscription = this.selectedLocation.subscribe(async (location: any) => {
       this.location = location;
-      let date = encodeURIComponent(location.timestamp);
-      this.get2HrForecast(date);
-      const closestLocation = await this.calculateClosestLocation(this.location.location.latitude, this.location.location.longitude);
-      this.setWeather(closestLocation);
+      if (location != null) {
+        let date = encodeURIComponent(location.timestamp);
+        this.get2HrForecast(date);
+        const closestLocation = await this.calculateClosestLocation(this.location.location.latitude, this.location.location.longitude);
+        this.setWeather(closestLocation);
+      }
+
     })
   }
 
