@@ -28,7 +28,7 @@ import { InputComponent } from './components/input/input.component';
 import { LocationListComponent } from './components/location-list/location-list.component';
 import { ImageComponent } from './components/image/image.component';
 import { WeatherComponent } from './components/weather/weather.component';
-
+import { ToastrModule } from 'ngx-toastr';
 
 
 @NgModule({
@@ -59,7 +59,8 @@ import { WeatherComponent } from './components/weather/weather.component';
     MatTableModule,
     MatPaginatorModule,
     CommonModule,
-    MatSortModule
+    MatSortModule,
+    ToastrModule.forRoot()
   ],
   providers: [
     MatNativeDateModule,

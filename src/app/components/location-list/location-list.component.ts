@@ -2,6 +2,7 @@ import { Component, EventEmitter, Input, OnInit, Output, ViewChild } from '@angu
 import { MatPaginator } from '@angular/material/paginator';
 import { MatTableDataSource } from '@angular/material/table';
 import { Observable, Subscription } from 'rxjs';
+import { ToastrService } from 'ngx-toastr';
 import * as moment from 'moment';
 
 // Services
@@ -27,7 +28,7 @@ export class LocationListComponent implements OnInit {
 
   @ViewChild(MatPaginator) paginator: MatPaginator;
 
-  constructor(private trafficService: TrafficService, private geocodeService: GeocodeService) { }
+  constructor(private trafficService: TrafficService, private geocodeService: GeocodeService, private toastr: ToastrService) { }
 
   ngOnInit(): void {
     this.selectedDateTimeSubscription = this.selectedDateTime.subscribe((date) => {
@@ -51,7 +52,7 @@ export class LocationListComponent implements OnInit {
           i.city = city.locality;
         });
       }
-    })
+    }, err => { this.toastr.error(err, 'Request Failed'); })
   }
 
   //emit location selected to traffic and weather components
